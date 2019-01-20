@@ -15,21 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
-//Admin Login
+//User Authentication Login
+Route::group(['prefix' => 'users'], function () {
+    Auth::routes();
+    Route::get('/dashboard', 'HomeController@index')->name('user.dashboard');
+});
+
+//Admin Authentication Login
 Route::group(['prefix' => 'admin'], function() {
     Route::get('/login', 'Auth\AdminLoginController@showAdminLoginForm')->name('get.admin.login');
     Route::post('/login', 'Auth\AdminLoginController@adminLogin')->name('post.admin.login');
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 });
 
-//Admin Auth Routes
-// Route::group(['prefix' => 'admin'], function() {
-//     Auth::routes();
-//     Route::get('/home', 'AdminController@index');
-// });
 
-
-// Route::get('/admin', 'AdminController@index')->name('admin');
