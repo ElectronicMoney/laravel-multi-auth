@@ -46,12 +46,14 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('user/dashboard', 'HomeController@index')->name('get.user.dashboard');
+Route::get('user/logout', 'Auth\LoginController@userLogout')->name('get.user.logout');
 
 //Admin Authentication Login
 Route::group(['prefix' => 'admin'], function() {
     Route::get('/login', 'Auth\AdminLoginController@showAdminLoginForm')->name('get.admin.login');
     Route::post('/login', 'Auth\AdminLoginController@adminLogin')->name('post.admin.login');
     Route::get('/dashboard', 'AdminController@index')->name('get.admin.dashboard');
+    Route::get('/logout', 'Auth\AdminLoginController@adminLogout')->name('get.admin.logout');
 });
 
 
